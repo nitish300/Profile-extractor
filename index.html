@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Akaya+Kanadaka&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        
+        .container {
+            height: 100vh;
+            display: flex;
+            width: 100vw;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        body {
+            background: rgb(255, 255, 255);
+            /* background: rgba(0, 0, 0, 0.9); */
+        }
+        
+        form {
+            width: 70vh;
+            height: 30vh;
+            display: flex;
+            /* border: 1px solid black; */
+            flex-direction: column;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+        
+        p {
+            width: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Akaya Kanadaka', cursive;
+            /* background-color: #3498db; */
+            background: linear-gradient(0deg, #fcfbfd, #fcfcfc);
+            height: 10vh;
+            border-radius: 70px;
+            opacity: 0.9;
+            box-shadow: 0 12px 8px 0 rgba(0, 0, 0, 0.2);
+            color: rgb(8, 8, 8);
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 2rem;
+        }
+        
+        form input {
+            position: absolute;
+            padding: 0;
+            width: 0.1vh;
+            height: 0.1vh;
+            /* opacity: 0; */
+        }
+        
+        form button {
+            font-size: 1.3rem;
+            margin: 0;
+            color: #fff;
+            background: #30336b;
+            border: none;
+            width: 30%;
+            height: 5vh;
+            border-radius: 10px;
+            border-bottom: 4px solid #282b64;
+            transition: all .2s ease;
+            outline: none;
+        }
+        
+        form button:hover {
+            background: #0842ad;
+            border-bottom: 4px solid #0842ad;
+            color: #fff;
+        }
+        /* forloader */
+        
+        .loader {
+            display: none;
+            position: relative;
+            top: 20rem;
+            margin: auto;
+            border: 16px solid #f3f3f3;
+            border-radius: 10vh;
+            border-top: 16px solid #3498db;
+            width: 120px;
+            height: 120px;
+            -webkit-animation: spin 2s linear infinite;
+            /* Safari */
+            animation: spin 2s linear infinite;
+        }
+        
+        @-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+        
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="loader text-center"></div>
+    <div class="container">
+        <form action="/upload" enctype="multipart/form-data" method="POST">
+            <input type="file" id="file" name='file' accept=".csv">
+            <label for="file"><p>Select file</p></label>
+            <!-- <p>Drag your csv file here.</p> -->
+            <button id="submit" type="submit">Upload</button>
+        </form>
+    </div>
+
+
+    <script>
+        let loader = document.querySelector('.loader');
+        const reader = new FileReader();
+        let inputTag = document.querySelector('form input');
+        let ptag = document.querySelector('form p');
+        let submitButton = document.querySelector('#submit');
+        inputTag.addEventListener('change', (e) => {
+            ptag.innerText = e.target.files[0].name;
+        });
+
+        reader.addEventListener('load', (e) => {
+            const result = event.target.result;
+            log(result)
+        })
+
+        submitButton.addEventListener('click', (e) => {
+            console.log(inputTag.files[0]);
+            console.log('Clicked');
+            loader.style.display = "block";
+        })
+    </script>
+</body>
+
+</html>
